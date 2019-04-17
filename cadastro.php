@@ -7,9 +7,19 @@
             $email = $_REQUEST["email"];
             $senha = $_REQUEST["senha"];
             $confirmarSenha = $_REQUEST["confirmPassword"];
+            $hash = password_hash($senha, PASSWORD_DEFAULT);
 
-            echo $nome . " " . $email . " " . $senha . " " . $confirmarSenha;
-            exit;
+            if ($senha == $confirmarSenha) {
+                $senhaCrip = password_hash($senha, PASSWORD_DEFAULT);
+            $novoUsuario = [
+                "nome" => $nome, 
+                "email" => $email,
+                "senha" => $senhaCrip,
+            ];
+            cadastrarUsuario($novoUsuario);
+            } else {
+                $erro = "senhas incompatíveis";
+            }
         }
     ?>
 

@@ -7,9 +7,14 @@
         $email = $_REQUEST["email"];
         $senha = $_REQUEST["senha"];
 
-        $estaLogado = logarUsuario($email, $senha);
+        $nomeLogado = logarUsuario($email, $senha);
 
-        if ($estaLogado == true) {
+        if ($nomeLogado == true) {
+            session_start();
+            $_SESSION["nome"] = $nomeLogado;
+            $_SESSION["email"] = $email;
+            $_SESSION["nivelAcesso"] = mt_rand(0, 1);
+            $_SESSION["logado"] = true;
             header("Location: index.php");
         } else {
             $erro = "Seu usuário não foi encontrado!";
